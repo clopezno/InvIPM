@@ -35,8 +35,8 @@ If it is not installed, you can download it from the following link [Descargar M
 
 ### 2.Executable files and a dataset with images of metal pieces.
 
--Download the executable distribution for Linux or Windows in the following repository [release](https://github.com/clopezno/InvIPM/releases)
--Run .InvP.Mexe in Windows or run.sh in Linux
+- Download the executable distribution for Linux or Windows in the following repository [release](https://github.com/clopezno/InvIPM/releases)
+- Run .InvP.Mexe in Windows or run.sh in Linux
 
 
 ## Contribution
