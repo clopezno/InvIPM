@@ -22,7 +22,6 @@ Algorithm exploration view of the MATLAB application developed to compare the tw
 ## Description of repository folders
 
 - **codeapp**  contains the code of the Matlab InvIPM desktop application. It also contains the sets of input images corresponding to metal pieces and their respective groundtruths.
-- **binapp** contains the executable distribution of the Matlab InvIPM desktop application for Linux and Windows.
 - **experiment** results obtained with 4 illumination invariant algorithms, 4 segmentation algorithms based on clustering approaches, and 29 images with metal parts 
 acquired by factory operators and manually segmented by researchers, 
 show that the application of illumination invariant transforms significantly improves the image segmentation results.
@@ -36,7 +35,7 @@ If it is not installed, you can download it from the following link [Descargar M
 
 ### 2.Executable files and a dataset with images of metal pieces.
 
--Download the executable distribution for Linux or Windows in the following repository folder [./appbin](appbin/)
+-Download the executable distribution for Linux or Windows in the following repository [release](https://github.com/clopezno/InvIPM/releases)
 -Run .InvP.Mexe in Windows or run.sh in Linux
 
 
