@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2023b"><title>Memoria Caché</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 20px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }
+.S2 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S3 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S4 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>Memoria Caché</span></h1><h2  class = 'S1'><span>¿Qué es?</span></h2><div  class = 'S2'><span>La memoria caché en una aplicación es un espacio de almacenamiento temporal de datos que permite mejorar el rendimiento al reducir los tiempos de acceso a la información. Su función principal es guardar datos o resultados que son costosos de obtener o calcular, para que puedan reutilizarse en futuras operaciones de forma rápida y eficiente.</span></div><h2  class = 'S1'><span>¿Por qué usarla?</span></h2><div  class = 'S2'><span>Debido a que la ejecución de los algoritmos, tanto de invariancia de iluminación como de segmentación de imágenes, tiene un costo computacional elevado, se ha optado por utilizar una memoria caché. Esta almacenará temporalmente todas las ejecuciones, guardándolas con un nombre descriptivo para que:</span></div><ol  class = 'S3'><li  class = 'S4'><span>Si el usuario intenta ejecutar el mismo algoritmo de invariancia de iluminación sobre la misma imagen, no sea necesario ejecutar el algoritmo nuevamente.</span></li><li  class = 'S4'><span>Si además el método de segmentación es el mismo con la misma cantidad de centros, también se evitará recalcular la segmentación tanto sobre la imagen original como sobre la invariante.</span></li></ol><div  class = 'S2'><span>Al cerrar la aplicación, los datos almacenados en la memoria caché serán eliminados. Únicamente se mantendrán en memoria aquellas imágenes que el usuario haya guardado utilizando el botón "Guardar imágenes" ya que estas no se guardan en la memoria caché.</span></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Memoria Caché
+%% ¿Qué es?
+% La memoria caché en una aplicación es un espacio de almacenamiento temporal 
+% de datos que permite mejorar el rendimiento al reducir los tiempos de acceso 
+% a la información. Su función principal es guardar datos o resultados que son 
+% costosos de obtener o calcular, para que puedan reutilizarse en futuras operaciones 
+% de forma rápida y eficiente.
+%% ¿Por qué usarla?
+% Debido a que la ejecución de los algoritmos, tanto de invariancia de iluminación 
+% como de segmentación de imágenes, tiene un costo computacional elevado, se ha 
+% optado por utilizar una memoria caché. Esta almacenará temporalmente todas las 
+% ejecuciones, guardándolas con un nombre descriptivo para que:
+%% 
+% # Si el usuario intenta ejecutar el mismo algoritmo de invariancia de iluminación 
+% sobre la misma imagen, no sea necesario ejecutar el algoritmo nuevamente.
+% # Si además el método de segmentación es el mismo con la misma cantidad de 
+% centros, también se evitará recalcular la segmentación tanto sobre la imagen 
+% original como sobre la invariante.
+%% 
+% Al cerrar la aplicación, los datos almacenados en la memoria caché serán eliminados. 
+% Únicamente se mantendrán en memoria aquellas imágenes que el usuario haya guardado 
+% utilizando el botón "Guardar imágenes" ya que estas no se guardan en la memoria 
+% caché.
+##### SOURCE END #####
+-->
+</div></body></html>
