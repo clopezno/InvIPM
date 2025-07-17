@@ -1,0 +1,315 @@
+{
+  "analysis_date": "2025-07-17T10:13:38.273243",
+  "summary": {
+    "total_files": 17,
+    "total_lines_of_code": 244,
+    "total_functions": 17,
+    "quality_score": 71,
+    "average_complexity": 2.53,
+    "average_function_length": 20.53
+  },
+  "code_smells": {
+    "total": 6,
+    "by_severity": {
+      "low": 2,
+      "medium": 3,
+      "high": 1
+    },
+    "details": [
+      {
+        "type": "insufficient_comments",
+        "severity": "low",
+        "file_path": "appcode/code/functions/metodos_invariantes.m",
+        "line_number": 1,
+        "function_name": "",
+        "description": "Comment ratio is 0.00% (min: 10%)",
+        "suggestion": "Add more comments to explain complex logic and function purposes"
+      },
+      {
+        "type": "magic_numbers",
+        "severity": "medium",
+        "file_path": "appcode/code/functions/metodos_invariantes.m",
+        "line_number": 1,
+        "function_name": "",
+        "description": "Found 6 magic numbers: [45, 5, 620, 540, 470]",
+        "suggestion": "Replace magic numbers with named constants for better readability"
+      },
+      {
+        "type": "magic_numbers",
+        "severity": "medium",
+        "file_path": "appcode/code/functions/metodos_agrupamiento.m",
+        "line_number": 1,
+        "function_name": "",
+        "description": "Found 3 magic numbers: [4, 0, 120]",
+        "suggestion": "Replace magic numbers with named constants for better readability"
+      },
+      {
+        "type": "too_many_parameters",
+        "severity": "medium",
+        "file_path": "appcode/code/functions/check_cache.m",
+        "line_number": 1,
+        "function_name": "",
+        "description": "Function has 7 parameters (max: 5)",
+        "suggestion": "Consider using structures or objects to group related parameters"
+      },
+      {
+        "type": "deep_nesting",
+        "severity": "high",
+        "file_path": "appcode/code/functions/check_cache.m",
+        "line_number": 1,
+        "function_name": "",
+        "description": "Code has nesting depth of 5 (max: 4)",
+        "suggestion": "Reduce nesting by using early returns, guard clauses, or extracting nested logic"
+      },
+      {
+        "type": "insufficient_comments",
+        "severity": "low",
+        "file_path": "appcode/code/functions/calcular_alpha.m",
+        "line_number": 1,
+        "function_name": "",
+        "description": "Comment ratio is 0.00% (min: 10%)",
+        "suggestion": "Add more comments to explain complex logic and function purposes"
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "file_path": "appcode/code/functions/metodos_invariantes.m",
+      "lines_of_code": 19,
+      "comment_lines": 0,
+      "blank_lines": 1,
+      "cyclomatic_complexity": 6,
+      "function_count": 1,
+      "max_function_length": 18,
+      "max_parameters": 2,
+      "max_nesting_depth": 2,
+      "magic_numbers": [
+        45,
+        5,
+        620,
+        540,
+        470,
+        4
+      ]
+    },
+    {
+      "file_path": "appcode/code/functions/metodos_agrupamiento.m",
+      "lines_of_code": 29,
+      "comment_lines": 6,
+      "blank_lines": 1,
+      "cyclomatic_complexity": 6,
+      "function_count": 1,
+      "max_function_length": 34,
+      "max_parameters": 4,
+      "max_nesting_depth": 2,
+      "magic_numbers": [
+        4,
+        0,
+        120
+      ]
+    },
+    {
+      "file_path": "appcode/code/functions/calcular_coincidencia.m",
+      "lines_of_code": 10,
+      "comment_lines": 6,
+      "blank_lines": 3,
+      "cyclomatic_complexity": 2,
+      "function_count": 1,
+      "max_function_length": 17,
+      "max_parameters": 2,
+      "max_nesting_depth": 2,
+      "magic_numbers": []
+    },
+    {
+      "file_path": "appcode/code/functions/segmentar_imagen_GMM.m",
+      "lines_of_code": 16,
+      "comment_lines": 7,
+      "blank_lines": 7,
+      "cyclomatic_complexity": 2,
+      "function_count": 1,
+      "max_function_length": 28,
+      "max_parameters": 3,
+      "max_nesting_depth": 2,
+      "magic_numbers": [
+        5,
+        127
+      ]
+    },
+    {
+      "file_path": "appcode/code/functions/convertir_a_blanco_negro_con_bordes.m",
+      "lines_of_code": 11,
+      "comment_lines": 5,
+      "blank_lines": 4,
+      "cyclomatic_complexity": 2,
+      "function_count": 1,
+      "max_function_length": 18,
+      "max_parameters": 1,
+      "max_nesting_depth": 2,
+      "magic_numbers": []
+    },
+    {
+      "file_path": "appcode/code/functions/calcular_theta_krajnik.m",
+      "lines_of_code": 19,
+      "comment_lines": 4,
+      "blank_lines": 5,
+      "cyclomatic_complexity": 3,
+      "function_count": 1,
+      "max_function_length": 26,
+      "max_parameters": 1,
+      "max_nesting_depth": 3,
+      "magic_numbers": [
+        180,
+        256
+      ]
+    },
+    {
+      "file_path": "appcode/code/functions/check_cache.m",
+      "lines_of_code": 32,
+      "comment_lines": 5,
+      "blank_lines": 5,
+      "cyclomatic_complexity": 8,
+      "function_count": 1,
+      "max_function_length": 40,
+      "max_parameters": 7,
+      "max_nesting_depth": 5,
+      "magic_numbers": []
+    },
+    {
+      "file_path": "appcode/code/functions/imagen_tres_canales.m",
+      "lines_of_code": 8,
+      "comment_lines": 7,
+      "blank_lines": 2,
+      "cyclomatic_complexity": 2,
+      "function_count": 1,
+      "max_function_length": 15,
+      "max_parameters": 1,
+      "max_nesting_depth": 2,
+      "magic_numbers": [
+        4
+      ]
+    },
+    {
+      "file_path": "appcode/code/functions/krajnik_transform.m",
+      "lines_of_code": 11,
+      "comment_lines": 4,
+      "blank_lines": 4,
+      "cyclomatic_complexity": 1,
+      "function_count": 1,
+      "max_function_length": 17,
+      "max_parameters": 2,
+      "max_nesting_depth": 1,
+      "magic_numbers": []
+    },
+    {
+      "file_path": "appcode/code/functions/maddern_transform.m",
+      "lines_of_code": 6,
+      "comment_lines": 2,
+      "blank_lines": 2,
+      "cyclomatic_complexity": 1,
+      "function_count": 1,
+      "max_function_length": 8,
+      "max_parameters": 2,
+      "max_nesting_depth": 1,
+      "magic_numbers": [
+        0
+      ]
+    },
+    {
+      "file_path": "appcode/code/functions/segmentar_imagen_fuzzy_CMeans.m",
+      "lines_of_code": 15,
+      "comment_lines": 5,
+      "blank_lines": 6,
+      "cyclomatic_complexity": 2,
+      "function_count": 1,
+      "max_function_length": 24,
+      "max_parameters": 3,
+      "max_nesting_depth": 2,
+      "magic_numbers": [
+        0,
+        127
+      ]
+    },
+    {
+      "file_path": "appcode/code/functions/PCA.m",
+      "lines_of_code": 30,
+      "comment_lines": 7,
+      "blank_lines": 11,
+      "cyclomatic_complexity": 2,
+      "function_count": 1,
+      "max_function_length": 45,
+      "max_parameters": 1,
+      "max_nesting_depth": 2,
+      "magic_numbers": [
+        180
+      ]
+    },
+    {
+      "file_path": "appcode/code/functions/segmentar_imagen_KMeans.m",
+      "lines_of_code": 13,
+      "comment_lines": 4,
+      "blank_lines": 5,
+      "cyclomatic_complexity": 2,
+      "function_count": 1,
+      "max_function_length": 20,
+      "max_parameters": 3,
+      "max_nesting_depth": 2,
+      "magic_numbers": [
+        127
+      ]
+    },
+    {
+      "file_path": "appcode/code/functions/alvarez_transform.m",
+      "lines_of_code": 10,
+      "comment_lines": 4,
+      "blank_lines": 4,
+      "cyclomatic_complexity": 1,
+      "function_count": 1,
+      "max_function_length": 16,
+      "max_parameters": 3,
+      "max_nesting_depth": 1,
+      "magic_numbers": []
+    },
+    {
+      "file_path": "appcode/code/functions/moda_color.m",
+      "lines_of_code": 6,
+      "comment_lines": 5,
+      "blank_lines": 4,
+      "cyclomatic_complexity": 1,
+      "function_count": 1,
+      "max_function_length": 13,
+      "max_parameters": 1,
+      "max_nesting_depth": 1,
+      "magic_numbers": []
+    },
+    {
+      "file_path": "appcode/code/functions/upcroft_transform.m",
+      "lines_of_code": 6,
+      "comment_lines": 2,
+      "blank_lines": 2,
+      "cyclomatic_complexity": 1,
+      "function_count": 1,
+      "max_function_length": 8,
+      "max_parameters": 2,
+      "max_nesting_depth": 1,
+      "magic_numbers": []
+    },
+    {
+      "file_path": "appcode/code/functions/calcular_alpha.m",
+      "lines_of_code": 3,
+      "comment_lines": 0,
+      "blank_lines": 0,
+      "cyclomatic_complexity": 1,
+      "function_count": 1,
+      "max_function_length": 2,
+      "max_parameters": 3,
+      "max_nesting_depth": 1,
+      "magic_numbers": []
+    }
+  ],
+  "recommendations": [
+    "Add more documentation to 2 file(s)",
+    "Replace magic numbers with named constants in 2 file(s)",
+    "Reduce parameter count in 1 function(s) by using structures",
+    "Reduce nesting depth in 1 location(s) using early returns"
+  ]
+}

@@ -1,0 +1,28 @@
+# Quality Assessment Reports
+quality_reports/
+test_quality_report.json
+matlab_quality_report.*
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Temporary files
+*.tmp
+*.temp
+temp_*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+test_*.m
