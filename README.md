@@ -1,52 +1,65 @@
-# Optimizing Image Segmentation in Metallic Objects Using Illumination-Invariant Transforms
-For objects of a metallic nature, the illumination will generate specular reflections
-and shadows, which must be minimized.
-This work proposes to apply illumination invariant transforms before image segmentation.
-As a case study, a set of input images with metallic parts is provided.
+# InvIPM: Optimizing Image Segmentation in Metallic Objects Using Illumination-Invariant Transforms
 
-![In a nutshell](./appcode/code/livescripts/img/img_method_en.png)
+## Overview
 
+For objects of a metallic nature, illumination generates specular reflections and shadows, which must be minimized to achieve accurate image segmentation. This work proposes to apply illumination invariant transforms before image segmentation to significantly improve processing results. As a case study, a comprehensive set of input images with metallic parts is provided.
+
+![Method Overview](./appcode/code/livescripts/img/img_method_en.png)
+
+## InvIPM Application Description
+
+InvIPM is a MATLAB desktop application that enables users to:
+
+- Load images of metallic objects
+- Apply various illumination-invariant transforms
+- Perform clustering-based segmentation methods
+- Quantify segmentation quality using ground truth comparisons
+
+The application provides an intuitive interface for comparing different processing approaches and evaluating their effectiveness.
  
+![Application Interface](./appcode/code/livescripts/img/img_appmatlabexplore.png)
+*Algorithm exploration view of the MATLAB application developed to compare different processing approaches.*
 
-## InvIPM App description
+## Repository Structure
 
-InvIPM is MATLAB desktop application.
-It has been developed that allows loading an image, applying a set of illumination-invariant transforms applying clustering-based segmentation methods,
- and quantifying the segmentation quality (if there is an image \textit{groundtruth}).
- 
-![In a nutshell](./appcode/code/livescripts/img/img_appmatlabexplore.png)
-Algorithm exploration view of the MATLAB application developed to compare the two processing proposals.
+This repository is organized into the following main directories:
 
-(More functions details in help view)
+- **`appcode/`** - Contains the MATLAB InvIPM desktop application code and datasets, including:
+  - Input images of metal pieces
+  - Corresponding ground truth segmentations
+  - Application source code
 
-## Description of repository folders
+- **`experiment/`** - Contains experimental results and analysis from testing:
+  - 4 illumination invariant algorithms
+  - 4 clustering-based segmentation algorithms  
+  - 29 metal part images acquired by factory operators
+  - Manual segmentations created by researchers
+  - Results demonstrating significant improvement in segmentation quality
 
-- **codeapp**  contains the code of the Matlab InvIPM desktop application. It also contains the sets of input images corresponding to metal pieces and their respective groundtruths.
-- **experiment** results obtained with 4 illumination invariant algorithms, 4 segmentation algorithms based on clustering approaches, and 29 images with metal parts 
-acquired by factory operators and manually segmented by researchers, 
-show that the application of illumination invariant transforms significantly improves the image segmentation results.
+## Installation
 
-## How to install
+### Prerequisites
 
-### 1. Pre-requisites
+You need to have MATLAB Runtime (R2023b) installed on your system.
+If it is not installed, you can download it from: [Download MATLAB Runtime R2023b](https://www.mathworks.com/products/compiler/mcr/index.html)
 
-You need to have MATLAB Runtime (R2023b) installed.
-If it is not installed, you can download it from the following link [Descargar MATLAB Runtime R2023b](https://www.mathworks.com/products/compiler/mcr/index.html)
+### Installation Steps
 
-### 2.Executable files and a dataset with images of metal pieces.
-
-- Download the executable distribution for Linux or Windows in the following repository [release](https://github.com/clopezno/InvIPM/releases)
-- Run .InvP.Mexe in Windows or run.sh in Linux
+1. Download the executable distribution for your operating system from the [releases page](https://github.com/clopezno/InvIPM/releases)
+2. Extract the downloaded files to your desired location
+3. Run the appropriate executable:
+   - **Windows**: Execute `InvIPM.exe`
+   - **Linux**: Execute `run.sh`
 
 
-## Contribution
+## Contributing
 
 Contributions are welcome! If you wish to contribute to this project, please follow the steps below:
 
 1. Create a fork of the repository.
 2. Create a new branch (`git checkout -b feature/new-feature`).
 3. Make your changes and commit (`git commit -am ‘Add new feature’`).
-4. Push your changes to the branch (`git push origin feature/new-functionality`).
+4. Push your changes to the branch (`git push origin feature/new-feature`)
 5. Open a Pull Request.
 
 
@@ -55,9 +68,9 @@ Contributions are welcome! If you wish to contribute to this project, please fol
 This project is licensed under the BSD 3-Clause License . See the [LICENSE](./LICENSE) file for details.
 
 
-## Authors 
+## Authors
 
-- Jonás Martínez-Sanllorente  jonasmartinez2000@gmail.com
-- Carlos Lopez-Nozal clopezno@ubu.es
-- Pedro Latorre-Carmona plcarmona@ubu.es
-- Raúl Marticorena-Sánchez rmartico@ubu.es
+- **Jonás Martínez-Sanllorente** - jonasmartinez2000@gmail.com
+- **Carlos Lopez-Nozal** - clopezno@ubu.es
+- **Pedro Latorre-Carmona** - plcarmona@ubu.es
+- **Raúl Marticorena-Sánchez** - rmartico@ubu.es
