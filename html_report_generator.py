@@ -195,6 +195,29 @@ def generate_html_report(json_report_path: str, output_path: str = None, repo_ur
             border-bottom: 2px solid #ecf0f1;
             padding-bottom: 10px;
             margin-bottom: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }}
+        .section h2:hover {{
+            color: #3498db;
+        }}
+        .section-toggle {{
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }}
+        .section-toggle.collapsed {{
+            transform: rotate(-90deg);
+        }}
+        .section-content {{
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            overflow: hidden;
+        }}
+        .section-content.collapsed {{
+            max-height: 0;
+            opacity: 0;
         }}
         .code-smells {{
             display: grid;
@@ -403,17 +426,22 @@ def generate_html_report(json_report_path: str, output_path: str = None, repo_ur
 
             <!-- Code Smells Section -->
             <div id="code-issues" class="section">
-                <h2>Code Quality Issues ({report['code_smells']['total']} found)</h2>
+                <h2 onclick="toggleSection('code-issues')">
+                    Code Quality Issues ({report['code_smells']['total']} found)
+                    <span class="section-toggle">▼</span>
+                </h2>
                 
-                <div style="margin-bottom: 20px;">
-                    <strong>Issues by Severity:</strong>
-                    <span class="severity-badge severity-high">{report['code_smells']['by_severity']['high']} High</span>
-                    <span class="severity-badge severity-medium">{report['code_smells']['by_severity']['medium']} Medium</span>
-                    <span class="severity-badge severity-low">{report['code_smells']['by_severity']['low']} Low</span>
-                </div>
+                <div class="section-content">
+                    <div style="margin-bottom: 20px;">
+                        <strong>Issues by Severity:</strong>
+                        <span class="severity-badge severity-high">{report['code_smells']['by_severity']['high']} High</span>
+                        <span class="severity-badge severity-medium">{report['code_smells']['by_severity']['medium']} Medium</span>
+                        <span class="severity-badge severity-low">{report['code_smells']['by_severity']['low']} Low</span>
+                    </div>
 
-                <div class="code-smells">
-                    {smell_items}
+                    <div class="code-smells">
+                        {smell_items}
+                    </div>
                 </div>
             </div>
 
@@ -424,22 +452,28 @@ def generate_html_report(json_report_path: str, output_path: str = None, repo_ur
 
             <!-- Detailed Metrics -->
             <div id="metrics" class="section">
-                <h2>File Metrics Details</h2>
-                <table class="metrics-table">
-                    <thead>
-                        <tr>
-                            <th>File</th>
-                            <th>LOC</th>
-                            <th>Functions</th>
-                            <th>Max Complexity</th>
-                            <th>Max Nesting</th>
-                            <th>Magic Numbers</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {metrics_table}
-                    </tbody>
-                </table>
+                <h2 onclick="toggleSection('metrics')">
+                    File Metrics Details
+                    <span class="section-toggle">▼</span>
+                </h2>
+                <div class="section-content">
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th>File</th>
+                                <th>LOC</th>
+                                <th>Functions</th>
+                                <th>Max Complexity</th>
+                                <th>Max Nesting</th>
+                                <th>Magic Numbers</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {metrics_table}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             </div>
         </div>
 
@@ -498,6 +532,23 @@ def generate_html_report(json_report_path: str, output_path: str = None, repo_ur
                 }}
             }});
         }});
+
+        // Toggle section collapse/expand
+        function toggleSection(sectionId) {{
+            const section = document.getElementById(sectionId);
+            const content = section.querySelector('.section-content');
+            const toggle = section.querySelector('.section-toggle');
+            
+            if (content.classList.contains('collapsed')) {{
+                content.classList.remove('collapsed');
+                toggle.classList.remove('collapsed');
+                toggle.textContent = '▼';
+            }} else {{
+                content.classList.add('collapsed');
+                toggle.classList.add('collapsed');
+                toggle.textContent = '▶';
+            }}
+        }}
     </script>
 </body>
 </html>
@@ -528,8 +579,14 @@ def generate_smell_items(smells: list, repo_url: str) -> str:
     for smell in smells:
         file_name = os.path.basename(smell['file_path'])
         github_link = f"{repo_url}/blob/main/{smell['file_path']}"
-        if smell.get('line_number', 0) > 0:
-            github_link += f"#L{smell['line_number']}"
+        
+        # Only add line number if it's greater than 1 (since 1 is the default/inaccurate value)
+        line_number = smell.get('line_number', 0)
+        if line_number > 1:
+            github_link += f"#L{line_number}"
+            line_info = f" (Line {line_number})"
+        else:
+            line_info = ""
             
         html += f"""
         <div class="smell-item {smell['severity']}">
@@ -540,7 +597,7 @@ def generate_smell_items(smells: list, repo_url: str) -> str:
             <div class="smell-description">{smell['description']}</div>
             <div class="smell-suggestion">💡 {smell['suggestion']}</div>
             <div style="margin-top: 8px;">
-                <span class="file-path">{file_name}</span>
+                <span class="file-path">{file_name}{line_info}</span>
                 <a href="{github_link}" target="_blank" class="github-link">
                     <span class="github-icon">🔗</span>View Source
                 </a>
@@ -558,11 +615,18 @@ def generate_recommendations_section(recommendations: list) -> str:
     recs_html = "\n".join(f"<li>{rec}</li>" for rec in recommendations)
     
     return f"""
-    <div class="recommendations">
-        <h3>🎯 Recommendations for Improvement</h3>
-        <ul>
-            {recs_html}
-        </ul>
+    <div class="section">
+        <h2 onclick="toggleSection('recommendations')">
+            🎯 Recommendations for Improvement
+            <span class="section-toggle">▼</span>
+        </h2>
+        <div class="section-content">
+            <div class="recommendations">
+                <ul>
+                    {recs_html}
+                </ul>
+            </div>
+        </div>
     </div>
     """
 
