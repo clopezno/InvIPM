@@ -52,6 +52,24 @@ If it is not installed, you can download it from: [Download MATLAB Runtime R2023
    - **Linux**: Execute `run.sh`
 
 
+## Code Quality Assessment
+
+This project includes a comprehensive code quality assessment system to maintain high code standards:
+
+```bash
+# Run complete quality assessment
+./run_quality_assessment.sh
+
+# Generate HTML quality report
+./run_quality_assessment.sh -f html
+```
+
+**Current Quality Status**: 6/100 (Improvement needed)
+- 📋 [Quality Assessment Guide](README_quality_assessment.md)
+- 📊 [Integration Overview](QUALITY_INTEGRATION.md)
+- 🔧 [Quality Reports](quality_reports/)
+
+
 ## Contributing
 
 Contributions are welcome! If you wish to contribute to this project, please follow the steps below:
