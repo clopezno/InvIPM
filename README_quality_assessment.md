@@ -23,7 +23,11 @@ This system provides comprehensive code quality analysis for MATLAB projects, sp
 ### 📊 Reporting
 - **JSON Reports** - Machine-readable detailed analysis results
 - **Text Reports** - Human-readable summary reports
-- **HTML Reports** - Interactive web-based quality dashboards
+- **HTML Reports** - Interactive web-based quality dashboards with:
+  - **Navigation Menu** - Fixed navigation bar for easy section jumping
+  - **GitHub Integration** - Direct links to source code and specific line numbers
+  - **Responsive Design** - Mobile-friendly interface
+  - **Smooth Scrolling** - Enhanced user experience
 - **Quality Score** - Overall quality score (0-100) with recommendations
 
 ## Installation & Usage
@@ -47,6 +51,42 @@ python code_quality_analyzer.py appcode/code -c quality_config.json -o report.js
 
 # Generate HTML report from JSON
 python html_report_generator.py quality_report.json
+
+# Generate HTML report with custom output file and repository URL
+python html_report_generator.py quality_report.json custom_report.html https://github.com/clopezno/InvIPM
+```
+
+## HTML Report Features
+
+### 🧭 Navigation Menu
+The enhanced HTML report includes a fixed navigation bar that allows you to quickly jump between sections:
+- **Quality Score**: Overall quality assessment
+- **Summary**: Key metrics overview  
+- **Code Issues**: Detailed code smells and problems
+- **Recommendations**: Actionable improvement suggestions
+- **File Metrics**: Detailed file-by-file analysis
+
+### 🔗 GitHub Integration
+Each code smell and file metric entry includes direct links to the source code:
+- **Code Smells**: Links to specific files and line numbers where issues were detected
+- **File Metrics**: Links to the source files in the repository
+- **Target**: Links open in new tabs for easy code review
+
+### 📱 Responsive Design
+The HTML report is fully responsive and works well on:
+- **Desktop**: Full navigation menu with hover effects
+- **Tablet**: Responsive grid layout
+- **Mobile**: Collapsible navigation menu with touch-friendly interface
+
+### Example Usage
+```bash
+# Generate HTML report with repository links
+python html_report_generator.py quality_report.json output_report.html https://github.com/clopezno/InvIPM
+
+# The report will include:
+# - Navigation menu for easy section jumping
+# - GitHub links to source code files
+# - Responsive design for all devices
 ```
 
 ### Configuration

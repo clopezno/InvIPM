@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 
 
-def generate_html_report(json_report_path: str, output_path: str = None) -> str:
+def generate_html_report(json_report_path: str, output_path: str = None, repo_url: str = "https://github.com/clopezno/InvIPM") -> str:
     """Generate an HTML report from the JSON analysis results."""
     
     if output_path is None:
@@ -21,9 +21,9 @@ def generate_html_report(json_report_path: str, output_path: str = None) -> str:
     # Generate the components
     analysis_date = datetime.fromisoformat(report['analysis_date']).strftime('%B %d, %Y at %I:%M %p')
     score_class = get_score_class(report['summary']['quality_score'])
-    smell_items = generate_smell_items(report['code_smells']['details'])
+    smell_items = generate_smell_items(report['code_smells']['details'], repo_url)
     recommendations_section = generate_recommendations_section(report.get('recommendations', []))
-    metrics_table = generate_metrics_table(report['metrics'])
+    metrics_table = generate_metrics_table(report['metrics'], repo_url)
     
     html_content = f"""
 <!DOCTYPE html>
@@ -37,8 +37,88 @@ def generate_html_report(json_report_path: str, output_path: str = None) -> str:
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             margin: 0;
             padding: 20px;
+            padding-top: 80px; /* Space for fixed navigation */
             background-color: #f5f5f5;
             color: #333;
+        }}
+        
+        /* Navigation Menu */
+        .navigation {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #2c3e50;
+            z-index: 1000;
+            padding: 0 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }}
+        
+        .nav-container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }}
+        
+        .nav-brand {{
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+        }}
+        
+        .nav-links {{
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }}
+        
+        .nav-links li {{
+            margin: 0;
+        }}
+        
+        .nav-links a {{
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }}
+        
+        .nav-links a:hover,
+        .nav-links a.active {{
+            background-color: #34495e;
+        }}
+        
+        /* Mobile Navigation */
+        .nav-toggle {{
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }}
+        
+        /* GitHub Link Styling */
+        .github-link {{
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 10px;
+        }}
+        
+        .github-link:hover {{
+            color: #3498db;
+            text-decoration: underline;
+        }}
+        
+        .github-icon {{
+            margin-right: 5px;
         }}
         .container {{
             max-width: 1200px;
@@ -219,10 +299,62 @@ def generate_html_report(json_report_path: str, output_path: str = None) -> str:
             .severity-badge {{
                 margin-top: 5px;
             }}
+            
+            /* Mobile Navigation */
+            .nav-links {{
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #2c3e50;
+                flex-direction: column;
+                gap: 0;
+                padding: 20px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }}
+            
+            .nav-links.active {{
+                display: flex;
+            }}
+            
+            .nav-links li {{
+                margin: 0;
+            }}
+            
+            .nav-links a {{
+                display: block;
+                padding: 15px;
+                border-radius: 0;
+                border-bottom: 1px solid #34495e;
+            }}
+            
+            .nav-links a:last-child {{
+                border-bottom: none;
+            }}
+            
+            .nav-toggle {{
+                display: block;
+            }}
         }}
     </style>
 </head>
 <body>
+    <!-- Navigation Menu -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <div class="nav-brand">InvIPM Quality Report</div>
+            <ul class="nav-links">
+                <li><a href="#quality-score">Quality Score</a></li>
+                <li><a href="#summary">Summary</a></li>
+                <li><a href="#code-issues">Code Issues</a></li>
+                <li><a href="#recommendations">Recommendations</a></li>
+                <li><a href="#metrics">File Metrics</a></li>
+            </ul>
+            <button class="nav-toggle" onclick="toggleNav()">☰</button>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="header">
             <h1>MATLAB Code Quality Analysis</h1>
@@ -234,7 +366,7 @@ def generate_html_report(json_report_path: str, output_path: str = None) -> str:
 
         <div class="content">
             <!-- Quality Score -->
-            <div class="quality-score">
+            <div id="quality-score" class="quality-score">
                 <div class="quality-circle {score_class}">
                     {report['summary']['quality_score']}/100
                 </div>
@@ -242,7 +374,7 @@ def generate_html_report(json_report_path: str, output_path: str = None) -> str:
             </div>
 
             <!-- Summary Metrics -->
-            <div class="summary-grid">
+            <div id="summary" class="summary-grid">
                 <div class="metric-card">
                     <div class="metric-value">{report['summary']['total_files']}</div>
                     <div class="metric-label">Files Analyzed</div>
@@ -270,7 +402,7 @@ def generate_html_report(json_report_path: str, output_path: str = None) -> str:
             </div>
 
             <!-- Code Smells Section -->
-            <div class="section">
+            <div id="code-issues" class="section">
                 <h2>Code Quality Issues ({report['code_smells']['total']} found)</h2>
                 
                 <div style="margin-bottom: 20px;">
@@ -286,10 +418,12 @@ def generate_html_report(json_report_path: str, output_path: str = None) -> str:
             </div>
 
             <!-- Recommendations -->
+            <div id="recommendations">
             {recommendations_section}
+            </div>
 
             <!-- Detailed Metrics -->
-            <div class="section">
+            <div id="metrics" class="section">
                 <h2>File Metrics Details</h2>
                 <table class="metrics-table">
                     <thead>
@@ -313,6 +447,58 @@ def generate_html_report(json_report_path: str, output_path: str = None) -> str:
             <p>Generated by MATLAB Code Quality Analyzer | InvIPM Project Quality Assessment</p>
         </div>
     </div>
+
+    <script>
+        // Navigation toggle for mobile
+        function toggleNav() {{
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }}
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {{
+            anchor.addEventListener('click', function (e) {{
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {{
+                    const offsetTop = targetElement.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({{
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    }});
+                }}
+                
+                // Close mobile menu if open
+                const navLinks = document.querySelector('.nav-links');
+                navLinks.classList.remove('active');
+            }});
+        }});
+
+        // Highlight active navigation item on scroll
+        window.addEventListener('scroll', function() {{
+            const sections = ['quality-score', 'summary', 'code-issues', 'recommendations', 'metrics'];
+            const scrollPosition = window.scrollY + 100;
+            
+            sections.forEach(sectionId => {{
+                const section = document.getElementById(sectionId);
+                const navLink = document.querySelector(`a[href="#${{sectionId}}"]`);
+                
+                if (section && navLink) {{
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {{
+                        document.querySelectorAll('.nav-links a').forEach(link => {{
+                            link.classList.remove('active');
+                        }});
+                        navLink.classList.add('active');
+                    }}
+                }}
+            }});
+        }});
+    </script>
 </body>
 </html>
 """
@@ -333,14 +519,18 @@ def get_score_class(score: int) -> str:
         return 'score-poor'
 
 
-def generate_smell_items(smells: list) -> str:
-    """Generate HTML for code smell items."""
+def generate_smell_items(smells: list, repo_url: str) -> str:
+    """Generate HTML for code smell items with GitHub links."""
     if not smells:
         return '<div class="smell-item">🎉 No code quality issues detected! Excellent work!</div>'
     
     html = ""
     for smell in smells:
         file_name = os.path.basename(smell['file_path'])
+        github_link = f"{repo_url}/blob/main/{smell['file_path']}"
+        if smell.get('line_number', 0) > 0:
+            github_link += f"#L{smell['line_number']}"
+            
         html += f"""
         <div class="smell-item {smell['severity']}">
             <div class="smell-header">
@@ -351,6 +541,9 @@ def generate_smell_items(smells: list) -> str:
             <div class="smell-suggestion">💡 {smell['suggestion']}</div>
             <div style="margin-top: 8px;">
                 <span class="file-path">{file_name}</span>
+                <a href="{github_link}" target="_blank" class="github-link">
+                    <span class="github-icon">🔗</span>View Source
+                </a>
             </div>
         </div>
         """
@@ -374,16 +567,22 @@ def generate_recommendations_section(recommendations: list) -> str:
     """
 
 
-def generate_metrics_table(metrics: list) -> str:
-    """Generate HTML table rows for file metrics."""
+def generate_metrics_table(metrics: list, repo_url: str) -> str:
+    """Generate HTML table rows for file metrics with GitHub links."""
     html = ""
     for metric in metrics:
         file_name = os.path.basename(metric['file_path'])
+        github_link = f"{repo_url}/blob/main/{metric['file_path']}"
         magic_count = len(metric['magic_numbers'])
         
         html += f"""
         <tr>
-            <td>{file_name}</td>
+            <td>
+                <span class="file-path">{file_name}</span>
+                <a href="{github_link}" target="_blank" class="github-link">
+                    <span class="github-icon">🔗</span>View
+                </a>
+            </td>
             <td>{metric['lines_of_code']}</td>
             <td>{metric['function_count']}</td>
             <td>{metric['cyclomatic_complexity']}</td>
@@ -399,17 +598,20 @@ def main():
     """Generate HTML report from JSON."""
     import sys
     
-    if len(sys.argv) != 2:
-        print("Usage: python html_report_generator.py <json_report_file>")
+    if len(sys.argv) < 2:
+        print("Usage: python html_report_generator.py <json_report_file> [output_file] [repo_url]")
         sys.exit(1)
     
     json_file = sys.argv[1]
+    output_file = sys.argv[2] if len(sys.argv) > 2 else None
+    repo_url = sys.argv[3] if len(sys.argv) > 3 else "https://github.com/clopezno/InvIPM"
+    
     if not os.path.exists(json_file):
         print(f"Error: File {json_file} not found")
         sys.exit(1)
     
-    output_file = generate_html_report(json_file)
-    print(f"HTML report generated: {output_file}")
+    result_file = generate_html_report(json_file, output_file, repo_url)
+    print(f"HTML report generated: {result_file}")
 
 
 if __name__ == '__main__':

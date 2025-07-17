@@ -143,8 +143,7 @@ case $FORMATS in
         HTML_FILE="$REPORTS_DIR/${OUTPUT_PREFIX}.html"
         print_status "Generating HTML report..."
         eval "$ANALYZER_CMD -o '$JSON_FILE' -f json"
-        python html_report_generator.py "$JSON_FILE"
-        mv "${JSON_FILE%.json}.html" "$HTML_FILE"
+        python html_report_generator.py "$JSON_FILE" "$HTML_FILE"
         print_success "HTML report saved: $HTML_FILE"
         ;;
     all)
@@ -161,8 +160,7 @@ case $FORMATS in
         print_success "Text report saved: $TXT_FILE"
         
         print_status "Generating HTML report..."
-        python html_report_generator.py "$JSON_FILE"
-        mv "${JSON_FILE%.json}.html" "$HTML_FILE"
+        python html_report_generator.py "$JSON_FILE" "$HTML_FILE"
         print_success "HTML report saved: $HTML_FILE"
         ;;
     *)
